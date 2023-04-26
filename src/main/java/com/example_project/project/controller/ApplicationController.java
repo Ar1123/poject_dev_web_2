@@ -1,6 +1,9 @@
 package com.example_project.project.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,15 +20,23 @@ public class ApplicationController {
     @Autowired
     private ApplicationRepository applicationRepository;
 
-    @RequestMapping(path = "/getAll", method = RequestMethod.GET)
-    public Iterable<ApplicationEntity> getAllaplications() throws Exception {
-
-        return applicationRepository.findAll();
-
-    }
-
     @RequestMapping(path = "/create-application", method = RequestMethod.POST)
     public ApplicationEntity createApplication(@RequestBody ApplicationEntity applicationEntity) {
+        return applicationRepository.save(applicationEntity);
+    }
+
+    @RequestMapping(path = "/get/{id}", method = RequestMethod.GET)
+    public Optional<ApplicationEntity> getAllOne(@PathVariable() Long id) throws Exception {
+        return applicationRepository.findById(id);
+    }
+
+    @RequestMapping(path = "/getAll", method = RequestMethod.GET)
+    public Iterable<ApplicationEntity> getAllaplications() throws Exception {
+        return applicationRepository.findAll();
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    public ApplicationEntity update(@RequestBody ApplicationEntity applicationEntity) {
         return applicationRepository.save(applicationEntity);
     }
 

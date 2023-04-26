@@ -54,7 +54,7 @@ public class ServerEntity {
      * Relacion de uno a muchos
      * 
      */
-    @OneToMany(mappedBy = "server", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "server")
     @JsonManagedReference
 
     private List<ApplicationEntity> applications;
