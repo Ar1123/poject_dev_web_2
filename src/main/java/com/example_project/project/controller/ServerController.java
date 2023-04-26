@@ -34,7 +34,7 @@ public class ServerController {
         return serverRepository.findById(id);
     }
 
-    @RequestMapping(value = "/update/${id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public ServerEntity update(@RequestBody ServerEntity serverEntity) {
         return serverRepository.save(serverEntity);
     }
