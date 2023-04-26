@@ -34,8 +34,14 @@ public class ServerController {
         return serverRepository.findById(id);
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "/update/${id}", method = RequestMethod.PUT)
     public ServerEntity update(@RequestBody ServerEntity serverEntity) {
         return serverRepository.save(serverEntity);
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.PUT)
+    public boolean delete(@PathVariable() Long id) {
+        serverRepository.deleteById(id);
+        return true;
     }
 }

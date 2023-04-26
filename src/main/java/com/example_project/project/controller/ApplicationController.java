@@ -40,4 +40,10 @@ public class ApplicationController {
         return applicationRepository.save(applicationEntity);
     }
 
+    @RequestMapping(value = "/delete", method = RequestMethod.PUT)
+    public boolean delete(@PathVariable() Long id) {
+        applicationRepository.deleteById(id);
+        return true;
+    }
+
 }
