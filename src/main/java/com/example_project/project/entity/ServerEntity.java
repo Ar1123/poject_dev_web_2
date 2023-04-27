@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,7 +25,7 @@ import lombok.Setter;
 @Getter
 
 @Entity
-
+@JsonSerialize
 public class ServerEntity {
 
     // id generada de forma automatica
@@ -54,7 +56,7 @@ public class ServerEntity {
      * 
      */
     @OneToMany(mappedBy = "server")
-    @JsonManagedReference
+    @JsonIgnoreProperties("server")
 
     private List<ApplicationEntity> applications;
 }

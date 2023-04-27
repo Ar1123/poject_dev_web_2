@@ -3,9 +3,6 @@ package com.example_project.project.entity;
 import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -43,7 +40,7 @@ public class ApplicationEntity {
      */
     @ManyToOne
     @JoinColumn(name = "server_id")
-    @JsonBackReference
+
     private ServerEntity server;
 
 }
