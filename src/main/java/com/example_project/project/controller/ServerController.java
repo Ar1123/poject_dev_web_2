@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example_project.project.entity.ServerEntity;
+import com.example_project.project.repository.CustomRepository;
 import com.example_project.project.repository.ServerRepository;
 
 @RestController
@@ -18,6 +19,7 @@ public class ServerController {
 
     @Autowired
     private ServerRepository serverRepository;
+    private CustomRepository customRepository = new CustomRepository();
 
     @RequestMapping(path = "/create-server", method = RequestMethod.POST)
     public ServerEntity createServer(@RequestBody ServerEntity serverEntity) throws Exception {
@@ -27,6 +29,12 @@ public class ServerController {
     @RequestMapping(path = "/getAll", method = RequestMethod.GET)
     public Iterable<ServerEntity> getAllServer() throws Exception {
         return serverRepository.findAll();
+    }
+
+    @RequestMapping(path = "/getServers", method = RequestMethod.GET)
+    public Iterable<ServerEntity> getServer() throws Exception {
+        return serverRepository.findAll(customRepository.getServers());
+
     }
 
     @RequestMapping(path = "/get/{id}", method = RequestMethod.GET)
