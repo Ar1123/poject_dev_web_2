@@ -29,4 +29,30 @@ public class CustomRepository {
         };
     }
 
+    // preguntar
+    public Specification<ServerEntity> getApplicationServerByname(String nameServer) {
+        System.out.println(nameServer);
+        return new Specification<ServerEntity>() {
+            @Override
+            public Predicate toPredicate(Root<ServerEntity> root, CriteriaQuery<?> query,
+                    CriteriaBuilder criteriaBuilder) {
+                Predicate equalPredicate = criteriaBuilder.equal(root.get("system"), nameServer);
+                return equalPredicate;
+            }
+        };
+
+    }
+
+    public Specification<ApplicationEntity> getApplicationByname(String nameApp) {
+        return new Specification<ApplicationEntity>() {
+            @Override
+            public Predicate toPredicate(Root<ApplicationEntity> root, CriteriaQuery<?> query,
+                    CriteriaBuilder criteriaBuilder) {
+                Predicate equalPredicate = criteriaBuilder.equal(root.get("name"), nameApp);
+                return equalPredicate;
+            }
+        };
+
+    }
+
 }

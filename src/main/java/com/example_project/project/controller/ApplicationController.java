@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example_project.project.entity.ApplicationEntity;
 import com.example_project.project.repository.ApplicationRepository;
+import com.example_project.project.repository.CustomRepository;
 
 @RestController
 @RequestMapping(path = "/api/v1/application")
@@ -19,6 +20,7 @@ public class ApplicationController {
     // reliza inyección de instancia
     @Autowired
     private ApplicationRepository applicationRepository;
+    private CustomRepository customRepository = new CustomRepository();
 
     @RequestMapping(path = "/create-application", method = RequestMethod.POST)
     public ApplicationEntity createApplication(@RequestBody ApplicationEntity applicationEntity) {
@@ -28,6 +30,11 @@ public class ApplicationController {
     @RequestMapping(path = "/get/{id}", method = RequestMethod.GET)
     public Optional<ApplicationEntity> getAllOne(@PathVariable() Long id) throws Exception {
         return applicationRepository.findById(id);
+    }
+
+    @RequestMapping(path = "/getAppByName/{nameApp}", method = RequestMethod.GET)
+    public Optional<ApplicationEntity> getAppByName(@PathVariable() String nameApp) throws Exception {
+        return applicationRepository.findOne(customRepository.getApplicationByname(nameApp));
     }
 
     @RequestMapping(path = "/getAll", method = RequestMethod.GET)

@@ -37,6 +37,11 @@ public class ServerController {
 
     }
 
+    @RequestMapping(path = "/getAppServer/{system}", method = RequestMethod.GET)
+    public Optional<ServerEntity> getAppByNameServer(@PathVariable() String system) throws Exception {
+        return serverRepository.findOne(customRepository.getApplicationServerByname(system));
+    }
+
     @RequestMapping(path = "/get/{id}", method = RequestMethod.GET)
     public Optional<ServerEntity> getAllOne(@PathVariable() Long id) throws Exception {
         return serverRepository.findById(id);
