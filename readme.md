@@ -3,7 +3,6 @@
 # Creado por: 
     * Andrés Ruiz
     * Esteban Bustamante
-    * Jose palencia
 
 # Versiones presentes en el proyecto
     * JAVA 17
