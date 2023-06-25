@@ -19,50 +19,52 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    // Método en carga
-    @Bean
-    public UserDetailsService userDetailsService() {
+        // Método en carga
+        @Bean
+        public UserDetailsService userDetailsService() {
 
-        PasswordEncoder passwordEncoder = bCryptPasswordEncoder();
-        String encodedPassword1 = passwordEncoder.encode("user123");
-        String encodedPassword2 = passwordEncoder.encode("admin123");
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+                PasswordEncoder passwordEncoder = bCryptPasswordEncoder();
+                String encodedPassword1 = passwordEncoder.encode("user123");
+                String encodedPassword2 = passwordEncoder.encode("admin123");
+                InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
 
-        manager.createUser(User.withUsername("user")
-                .password(encodedPassword1)
-                .roles("USER")
-                .build());
-        manager.createUser(User.withUsername("admin")
-                .password(encodedPassword2)
-                .roles("ADMIN")
-                .build());
+                manager.createUser(User.withUsername("user")
+                                .password(encodedPassword1)
+                                .roles("USER")
+                                .build());
+                manager.createUser(User.withUsername("admin")
+                                .password(encodedPassword2)
+                                .roles("ADMIN")
+                                .build());
 
-        return manager;
-    }
+                return manager;
+        }
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+        @Bean
+        public BCryptPasswordEncoder bCryptPasswordEncoder() {
+                return new BCryptPasswordEncoder();
+        }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        @Bean
+        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http.httpBasic().and()
-                .authorizeHttpRequests()
-                // para el controlador de aplicacion
-                .requestMatchers(HttpMethod.GET, "/api/v1/application/**").hasRole("USER")
-                .requestMatchers(HttpMethod.PUT, "/api/v1/application/**").hasAnyRole("USER", "ADMIN")
-                .requestMatchers(HttpMethod.POST, "/api/v1/application/**").hasRole("ADMIN")
-                // para el controlador de servidores
-                .requestMatchers(HttpMethod.GET, "/api/v1/server/**").hasRole("USER")
-                .requestMatchers(HttpMethod.PUT, "/api/v1/server/**").hasAnyRole("USER", "ADMIN")
-                .requestMatchers(HttpMethod.POST, "/api/v1/server/**").hasRole("ADMIN")
-                .and()
-                .csrf().disable()
-                .formLogin().disable();
-        return http.build();
+                http.httpBasic().and()
+                                .authorizeHttpRequests()
+                                // para el controlador de aplicacion
+                                .requestMatchers(HttpMethod.GET, "/swagger-ui/index.html#/").hasAnyRole("USER", "ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/api/v1/application/**").hasRole("USER")
+                                .requestMatchers(HttpMethod.PUT, "/api/v1/application/**").hasAnyRole("USER",
+                                                "ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/api/v1/application/**").hasRole("ADMIN")
+                                // para el controlador de servidores
+                                .requestMatchers(HttpMethod.GET, "/api/v1/server/**").hasRole("USER")
+                                .requestMatchers(HttpMethod.PUT, "/api/v1/server/**").hasAnyRole("USER",
+                                                "ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/api/v1/server/**").hasRole("ADMIN")
+                                .and()
+                                .csrf().disable();
+                return http.build();
 
-    }
+        }
 
 }

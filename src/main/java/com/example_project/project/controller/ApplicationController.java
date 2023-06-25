@@ -15,6 +15,7 @@ import com.example_project.project.repository.CustomRepository;
 
 @RestController
 @RequestMapping(path = "/api/v1/application")
+
 public class ApplicationController {
 
     // reliza inyección de instancia
