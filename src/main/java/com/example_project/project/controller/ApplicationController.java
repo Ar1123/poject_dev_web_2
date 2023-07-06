@@ -13,8 +13,11 @@ import com.example_project.project.entity.ApplicationEntity;
 import com.example_project.project.repository.ApplicationRepository;
 import com.example_project.project.repository.CustomRepository;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 @RestController
 @RequestMapping(path = "/api/v1/application")
+@SecurityRequirement(name = "javainuseapi")
 
 public class ApplicationController {
 

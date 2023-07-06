@@ -48,10 +48,26 @@ public class SecurityConfig {
         @Bean
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
+                String[] AUTH_WHITELIST = {
+                                // -- Swagger UI v2
+                                "/v2/api-docs",
+                                "/swagger-resources",
+                                "/swagger-resources/**",
+                                "/configuration/ui",
+                                "/configuration/**",
+                                "/configuration/security",
+                                "/swagger-ui.html",
+                                "/webjars/**",
+                                // -- Swagger UI v3 (OpenAPI)
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui/",
+                                "/swagger-ui"
+                };
                 http.httpBasic().and()
                                 .authorizeHttpRequests()
                                 // para el controlador de aplicacion
-                                .requestMatchers(HttpMethod.GET, "/swagger-ui/index.html#/").hasAnyRole("USER", "ADMIN")
+                                .requestMatchers(AUTH_WHITELIST).permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/v1/application/**").hasRole("USER")
                                 .requestMatchers(HttpMethod.PUT, "/api/v1/application/**").hasAnyRole("USER",
                                                 "ADMIN")
